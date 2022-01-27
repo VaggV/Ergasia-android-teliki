@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1081370421121",
+    "project_id": "ergasia-android-teliki",
+    "storage_bucket": "ergasia-android-teliki.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1081370421121:android:eb62e0c67baf9ebe29aa80",
+        "android_client_info": {
+          "package_name": "com.ergasia_android_teliki"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1081370421121-6kjtoj5jgd0javl7lu6bj9n9a1caj6il.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACQhcZCDfjhCI_Aw_dTEmxEVmeKlZGMEs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1081370421121-6kjtoj5jgd0javl7lu6bj9n9a1caj6il.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

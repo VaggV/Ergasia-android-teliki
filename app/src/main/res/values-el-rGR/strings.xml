@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="languages">
+        <item>Αγγλικά</item>
+        <item>Ελληνικά</item>
+    </string-array>
+    <string name="app_name">Ergasia-android-teliki</string>
+    <string name="error_weak_password">Ο κωδικός είναι αδύναμος</string>
+    <string name="error_invalid_email">Το email είναι λάθος</string>
+    <string name="error_user_exists">Υπάρχει ήδη χρήστης με αυτό το email</string>
+    <string name="user_not_found">Δεν υπάρχει χρήστης με αυτό το email</string>
+    <string name="error_invalid_password">Λάθος κωδικός</string>
+    <string name="logoutBtn">Αποσύνδεση</string>
+    <string name="choose_language">Διαλέξτε γλώσσα</string>
+    <string name="login">Είσοδος</string>
+    <string name="enter_your_email">Το email σας</string>
+    <string name="enter_your_password">Ο κωδικός σας</string>
+    <string name="click_away_shop">Μαγαζί click away</string>
+    <string name="register">Εγγραφή</string>
+    <string name="back_to_login">Πίσω στην είσοδο</string>
+    <string name="change_language">Change to English</string>
+</resources>

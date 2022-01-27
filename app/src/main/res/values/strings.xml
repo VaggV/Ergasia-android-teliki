@@ -1,3 +1,34 @@
 <resources>
     <string name="app_name">Ergasia-android-teliki</string>
+
+    <!--Language types-->
+    <string-array name="languages">
+        <item>English</item>
+        <item>Greek</item>
+    </string-array>
+
+    <!--Login activity-->
+    <string name="user_not_found">There\'s no user with this email</string>
+    <string name="error_invalid_password">Incorrect password</string>
+    <string name="login">Login</string>
+    <string name="click_away_shop">Click away shop</string>
+    <string name="enter_your_email">Your email</string>
+    <string name="enter_your_password">Your password</string>
+    <string name="change_language">Αλλάξτε σε Ελληνικά</string>
+
+    <!--Register activity-->
+    <string name="error_weak_password">Password is weak</string>
+    <string name="error_invalid_email">Email is invalid</string>
+    <string name="error_user_exists">User with this email already exists</string>
+    <string name="register">Register</string>
+    <string name="back_to_login">Back to login</string>
+
+    <!--Main activity-->
+    <string name="logoutBtn">Logout</string>
+    <string name="choose_language">Choose language</string>
+
+
+
+
+
 </resources>
