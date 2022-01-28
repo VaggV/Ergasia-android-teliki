@@ -1,12 +1,6 @@
 <resources>
     <string name="app_name">Ergasia-android-teliki</string>
 
-    <!--Language types-->
-    <string-array name="languages">
-        <item>English</item>
-        <item>Greek</item>
-    </string-array>
-
     <!--Login activity-->
     <string name="user_not_found">There\'s no user with this email</string>
     <string name="error_invalid_password">Incorrect password</string>
@@ -14,7 +8,11 @@
     <string name="click_away_shop">Click away shop</string>
     <string name="enter_your_email">Your email</string>
     <string name="enter_your_password">Your password</string>
-    <string name="change_language">Αλλάξτε σε Ελληνικά</string>
+    <string name="please_enter_email">Please enter your email.</string>
+    <string name="please_enter_password">Please enter your password.</string>
+    <string name="login_successful">Login successful</string>
+    <string name="login_failed_unknown">Login failed with unknown error</string>
+
 
     <!--Register activity-->
     <string name="error_weak_password">Password is weak</string>
@@ -22,13 +20,15 @@
     <string name="error_user_exists">User with this email already exists</string>
     <string name="register">Register</string>
     <string name="back_to_login">Back to login</string>
+    <string name="registration_successful">Registration was successful!</string>
+    <string name="register_failed_unknown">Registration failed with unknown error</string>
 
     <!--Main activity-->
     <string name="logoutBtn">Logout</string>
     <string name="choose_language">Choose language</string>
-
-
-
+    <string name="shop_button">Shop</string>
+    <string name="your_orders_button">Your orders</string>
+    <string name="settings_button">Settings</string>
 
 
 </resources>

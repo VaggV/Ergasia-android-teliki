@@ -51,27 +51,27 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login(){
-        progressBar.setVisibility(View.VISIBLE);
         String email, password;
         email = emailInput.getText().toString();
         password = passwordInput.getText().toString();
 
         // If email or password inputs are empty then the app doesn't try to login
         if (TextUtils.isEmpty(email)){
-            Toast.makeText(getApplicationContext(), "Please enter your email.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.please_enter_email), Toast.LENGTH_LONG).show();
             return;
         }
 
         if (TextUtils.isEmpty(password)) {
-            Toast.makeText(getApplicationContext(), "Please enter your password.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.please_enter_password), Toast.LENGTH_LONG).show();
             return;
         }
 
+        progressBar.setVisibility(View.VISIBLE);
         // Try to login, if login successful then open main activity
         // if unsuccessful then show login failed message
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             if (task.isSuccessful()){
-                Toast.makeText(getApplicationContext(), "Login successful!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.login_successful), Toast.LENGTH_LONG).show();
 
                 // Start main activity after login
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -88,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
                     passwordInput.setError(getString(R.string.error_invalid_password));
                     passwordInput.requestFocus();
                 } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(), "Login failed with unknown error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.please_enter_password), Toast.LENGTH_SHORT).show();
                     Log.e(TAG, e.getMessage());
                 }
             }
