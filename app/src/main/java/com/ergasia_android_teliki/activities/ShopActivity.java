@@ -68,6 +68,8 @@ public class ShopActivity extends AppCompatActivity {
                             Integer.parseInt(String.valueOf(data.get("Availability"))),
                             String.valueOf(data.get("ImageName")));
 
+
+
                     index += 1;
                 }
 

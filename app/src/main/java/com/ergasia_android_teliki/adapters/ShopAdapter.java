@@ -3,6 +3,8 @@ package com.ergasia_android_teliki.adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +18,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ergasia_android_teliki.Product;
 import com.ergasia_android_teliki.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.google.gson.Gson;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder>{
+    private static final String TAG = "ShopAdapter";
+
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView title;
         public TextView quantity;
@@ -31,11 +39,11 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder>{
 
         public ViewHolder(View itemView){
             super(itemView);
-            title = (TextView) itemView.findViewById(R.id.itemTitle);
-            quantity = (TextView) itemView.findViewById(R.id.itemAvailability);
-            price = (TextView) itemView.findViewById(R.id.itemPrice);
-            img = (ImageView) itemView.findViewById(R.id.itemImage);
-            btn = (Button) itemView.findViewById(R.id.addToCartBtn);
+            title = itemView.findViewById(R.id.itemTitle);
+            quantity = itemView.findViewById(R.id.itemAvailability);
+            price = itemView.findViewById(R.id.itemPrice);
+            img = itemView.findViewById(R.id.itemImage);
+            btn = itemView.findViewById(R.id.addToCartBtn);
         }
     }
 
@@ -70,7 +78,25 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder>{
         TextView price = holder.price;
         Button button = holder.btn;
         ImageView img = holder.img;
-        img.setBackgroundResource(R.drawable.product);
+
+
+        try {
+            File file = File.createTempFile("temp", "jpg");
+
+            StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+            StorageReference imageRef = storageRef.child("product_images/" + product.getImageName());
+
+            imageRef.getFile(file).addOnSuccessListener(taskSnapshot -> {
+                img.setImageBitmap(BitmapFactory.decodeFile(file.getAbsolutePath()));
+            }).addOnFailureListener(e -> {
+                img.setBackgroundResource(R.drawable.error_image);
+                Log.e(TAG, e.getMessage());
+            });
+
+        } catch (Exception e){
+            img.setBackgroundResource(R.drawable.error_image);
+            Log.e(TAG, e.getMessage());
+        }
 
         title.setText(product.getTitle());
         quantity.setText(context.getString(R.string.availability_text, String.valueOf(product.getAvailability())));

@@ -1,6 +1,9 @@
 package com.ergasia_android_teliki.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +16,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ergasia_android_teliki.Product;
 import com.ergasia_android_teliki.R;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
 import java.util.List;
 
 public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapter.ViewHolder>{
+    private static final String TAG = "ShoppingCartAdapter";
+
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView title;
         public TextView quantity;
@@ -35,9 +43,11 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
     }
 
     private List<Product> products;
+    private Context context;
 
-    public ShoppingCartAdapter(List<Product> products_){
+    public ShoppingCartAdapter(List<Product> products_, Context context_){
         products = products_;
+        context = context_;
     }
 
     @NonNull
@@ -51,6 +61,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
         return new ViewHolder(cartView);
     }
 
+    @SuppressLint("StringFormatInvalid")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position){
         Product product = products.get(position);
@@ -59,10 +70,27 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
         TextView price = holder.price;
         ImageButton button = holder.delete;
         ImageView img = holder.img;
-        img.setBackgroundResource(R.drawable.product);
+
+        try {
+            File file = File.createTempFile("temp", "jpg");
+
+            StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+            StorageReference imageRef = storageRef.child("product_images/" + product.getImageName());
+
+            imageRef.getFile(file).addOnSuccessListener(taskSnapshot -> {
+                img.setImageBitmap(BitmapFactory.decodeFile(file.getAbsolutePath()));
+            }).addOnFailureListener(e -> {
+                img.setBackgroundResource(R.drawable.error_image);
+                Log.e(TAG, e.getMessage());
+            });
+
+        } catch (Exception e){
+            img.setBackgroundResource(R.drawable.error_image);
+            Log.e(TAG, e.getMessage());
+        }
 
         title.setText(product.getTitle());
-        quantity.setText(String.valueOf(product.getAvailability()));
+        quantity.setText(context.getString(R.string.availability_text, String.valueOf(product.getAvailability())));
         price.setText(String.valueOf(product.getPrice()));
 
     }
