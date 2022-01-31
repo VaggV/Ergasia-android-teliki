@@ -1,10 +1,10 @@
-package com.ergasia_android_teliki;
+package com.ergasia_android_teliki.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.content.res.Resources;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -14,23 +14,28 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.ergasia_android_teliki.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
-
-import java.util.Locale;
 
 public class LoginActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     EditText emailInput, passwordInput;
     Button loginBtn, registerBtn;
     ProgressBar progressBar;
+    SharedPreferences sp;
+    SharedPreferences.Editor editor;
     private static final String TAG = "LoginActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        // SharedPreferences initialization
+        sp = getSharedPreferences("Cart", Context.MODE_PRIVATE);
+        editor = sp.edit();
 
         // Firebase auth initialization
         mAuth = FirebaseAuth.getInstance();
@@ -41,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn = findViewById(R.id.login);
         registerBtn = findViewById(R.id.register);
         progressBar = findViewById(R.id.progressBar);
+
         // Set on click listener methods to buttons
         loginBtn.setOnClickListener(view -> login());
         registerBtn.setOnClickListener(view -> {
@@ -75,6 +81,9 @@ public class LoginActivity extends AppCompatActivity {
 
                 // Start main activity after login
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+
+                // Initialize cart clears the cart when a new login has been made
+                initializeCart();
                 startActivity(intent);
             } else {
                 // Different catch clauses for each error case
@@ -95,5 +104,9 @@ public class LoginActivity extends AppCompatActivity {
 
             progressBar.setVisibility(View.GONE);
         });
+    }
+
+    private void initializeCart(){
+        editor.clear().apply();
     }
 }

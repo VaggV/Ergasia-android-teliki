@@ -23,4 +23,6 @@
     <string name="shop_button">Μαγαζί</string>
     <string name="your_orders_button">Οι παραγγελίες σας</string>
     <string name="settings_button">Ρυθμίσεις</string>
+    <string name="add_to_cart_button">Προσθήκη στο καλάθι</string>
+    <string name="availability_text">Διαθέσιμα:</string>
 </resources>

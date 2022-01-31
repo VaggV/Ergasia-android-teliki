@@ -1,4 +1,4 @@
-package com.ergasia_android_teliki;
+package com.ergasia_android_teliki.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,11 +12,15 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.ergasia_android_teliki.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -24,6 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
     EditText emailInput, passwordInput;
     ProgressBar progressBar;
     Button registerBtn, backBtn;
+    FirebaseFirestore db;
     private static final String TAG = "RegisterActivity";
 
     @Override
@@ -31,7 +36,8 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        // Firebase auth initialization
+        // Firebase initialization
+        db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
 
         // Get controls from layout
@@ -73,6 +79,18 @@ public class RegisterActivity extends AppCompatActivity {
             if (task.isSuccessful()){
                 Toast.makeText(getApplicationContext(), getString(R.string.registration_successful), Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+
+                // When a new user has been registered we also add him in firestore
+                // so we can specify a role (consumer is the default, and from
+                // firebase console we can change it to "store")
+                Map<String, Object> user = new HashMap<>();
+                user.put("role", "consumer");
+                db.collection("users").document(email).set(user).addOnSuccessListener(unused -> {
+                    Log.d(TAG, "User added to firestore with id: " + email);
+                }).addOnFailureListener(e -> {
+                    Log.w(TAG, "Error adding new user to firestore.", e);
+                });
+
                 startActivity(intent);
             } else {
                 // Different catch clause for each register error

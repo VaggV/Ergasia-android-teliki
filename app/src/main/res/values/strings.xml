@@ -30,5 +30,10 @@
     <string name="your_orders_button">Your orders</string>
     <string name="settings_button">Settings</string>
 
+    <!--Shop activity-->
+    <string name="add_to_cart_button">Add to cart</string>
+    <string name="availability_text">Available: %1$s</string>
+    <string name="product_price" translatable="false">%1$s €</string>
+
 
 </resources>
