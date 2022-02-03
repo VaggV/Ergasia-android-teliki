@@ -18,14 +18,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ergasia_android_teliki.Product;
 import com.ergasia_android_teliki.R;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder>{
     private static final String TAG = "ShopAdapter";
@@ -79,7 +81,8 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder>{
         Button button = holder.btn;
         ImageView img = holder.img;
 
-
+        // Try catch to set the image of each product
+        // (File.createTempFile needs the try/catch)
         try {
             File file = File.createTempFile("temp", "jpg");
 
@@ -102,20 +105,48 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder>{
         quantity.setText(context.getString(R.string.availability_text, String.valueOf(product.getAvailability())));
         price.setText(context.getString(R.string.product_price, String.valueOf(product.getPrice())));
 
+        // Get cart from shared preferences
         SharedPreferences sp = context.getSharedPreferences("Cart", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
 
-        cartlist = new ArrayList<>();
+        Gson gson = new Gson();
+        Type type = new TypeToken<ArrayList<Product>>() {}.getType();
+
+        cartlist = gson.fromJson(sp.getString("productlist", null), type);
+        if (cartlist == null)
+            // If there are no products in the cart then initalize the array
+            cartlist = new ArrayList<>();
+
+
+        // One item array because to increment it inside onclick listener
+        // it needs to be effectively final
+        int[] productamount = new int[1];
+        // We get the product amount (it's the amount of a product that the user has put in his cart)
+        productamount[0] = sp.getInt("Product" + product.getId(), 0);
+
+        // If the product quantity is 0 or the product amount the user has in his cart is max
+        // then disable the add to cart button
+        if (product.getAvailability() == 0 || productamount[0] == product.getAvailability()){
+            button.setEnabled(false);
+        }
 
         // Set add to cart on click method
         button.setOnClickListener(view -> {
+            /* ADD TO CART BUTTON */
+            productamount[0] += 1;
+
             cartlist.add(product);
-            Gson gson = new Gson();
             editor.putString("productlist", gson.toJson(cartlist));
+            editor.putInt("Product" + product.getId(), productamount[0]);
             editor.apply();
+
+            // Check if the user has reached the max quantity amount while adding to the cart,
+            // if so, then disable the button
+            if (productamount[0] >= product.getAvailability())
+                button.setEnabled(false);
+
             Toast.makeText(context.getApplicationContext(), "Added to cart", Toast.LENGTH_SHORT).show();
         });
-
     }
 
     @Override

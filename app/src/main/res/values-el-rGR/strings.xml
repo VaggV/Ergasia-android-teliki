@@ -25,4 +25,18 @@
     <string name="settings_button">Ρυθμίσεις</string>
     <string name="add_to_cart_button">Προσθήκη στο καλάθι</string>
     <string name="availability_text">Διαθέσιμα:</string>
+    <string name="cart_total">Σύνολο: %1$s€</string>
+    <string name="back_button">Πίσω</string>
+    <string name="getting_location">Ανάκτηση τοποθεσίας</string>
+    <string name="get_current_location">Λήψη τωρινής τοποθεσίας</string>
+    <string name="dialog_ok">Εντάξει</string>
+    <string name="dialog_loc_services_off">Οι υπηρεσίες τοποθεσίας είναι απενεργοποιημένες!</string>
+    <string name="dialog_title_warning">Προσοχή</string>
+    <string-array name="spinner_no_permission">
+        <item>Παρακαλούμε ενεργοποιήστε την άδεια τοποθεσίας</item>
+    </string-array>
+    <string name="complete_order">Ολοκλήρωση Παραγγελίας</string>
+    <string name="order_info_1">Επιλέξτε ένα μαγαζί απο την παρακάτω λίστα για να δείτε τις εκάστοτε διαθέσιμες ώρες για παραλαβή και πόσο μακρύα βρίσκεται από την τοποθεσίας σας.</string>
+    <string name="order_info_2">Μπορείτε να πατήσετε το κουμπί \"Λήψη τωρινής τοποθεσίας\" για να ανανεώσετε τις πληροφορίες βάσει της καινούριας σας τοποθεσίας.</string>
+    <string name="distance_in_kilometers">Αυτό το κατάστημα βρίσκετε %1$s χμ. μακρυά σας.</string>
 </resources>

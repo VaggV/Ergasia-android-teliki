@@ -4,10 +4,13 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Vaggelis/AndroidStudioProjects/Ergasiaandroidteliki/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2456081081081081" />
+        <entry key="..\:/Users/Vaggelis/AndroidStudioProjects/Ergasiaandroidteliki/app/src/main/res/drawable/dropdown_background.xml" value="0.2456081081081081" />
         <entry key="..\:/Users/Vaggelis/AndroidStudioProjects/Ergasiaandroidteliki/app/src/main/res/drawable/ic_launcher_background.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/Vaggelis/AndroidStudioProjects/Ergasiaandroidteliki/app/src/main/res/drawable/settings_icon.xml" value="0.2456081081081081" />
+        <entry key="..\:/Users/Vaggelis/AndroidStudioProjects/Ergasiaandroidteliki/app/src/main/res/layout/activity_cart_order.xml" value="0.23513513513513515" />
         <entry key="..\:/Users/Vaggelis/AndroidStudioProjects/Ergasiaandroidteliki/app/src/main/res/layout/activity_login.xml" value="0.31351351351351353" />
         <entry key="..\:/Users/Vaggelis/AndroidStudioProjects/Ergasiaandroidteliki/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/Vaggelis/AndroidStudioProjects/Ergasiaandroidteliki/app/src/main/res/layout/activity_order.xml" value="0.25" />
         <entry key="..\:/Users/Vaggelis/AndroidStudioProjects/Ergasiaandroidteliki/app/src/main/res/layout/activity_register.xml" value="0.23513513513513515" />
         <entry key="..\:/Users/Vaggelis/AndroidStudioProjects/Ergasiaandroidteliki/app/src/main/res/layout/activity_shop.xml" value="0.23513513513513515" />
         <entry key="..\:/Users/Vaggelis/AndroidStudioProjects/Ergasiaandroidteliki/app/src/main/res/layout/activity_shopping_cart.xml" value="0.23513513513513515" />

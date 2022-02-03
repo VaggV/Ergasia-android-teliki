@@ -4,22 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
-import android.widget.LinearLayout;
 
 import com.ergasia_android_teliki.Product;
 import com.ergasia_android_teliki.R;
-import com.ergasia_android_teliki.Variables;
 import com.ergasia_android_teliki.adapters.ShopAdapter;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,10 +38,16 @@ public class ShopActivity extends AppCompatActivity {
         buttonviewcart.setOnClickListener(view -> {
             Intent intent = new Intent(ShopActivity.this, ShoppingCartActivity.class);
             startActivity(intent);
+            finish();
         });
         buttonback = findViewById(R.id.buttonback);
         buttonback.setOnClickListener(view -> finish());
 
+
+        RecyclerView shopItems = findViewById(R.id.shopItems);
+        ShopAdapter adapter = new ShopAdapter(new ArrayList<>(), this);
+        shopItems.setAdapter(adapter);
+        shopItems.setLayoutManager(new LinearLayoutManager(this));
 
         db.collection("products").get().addOnCompleteListener(task -> {
             if (task.isSuccessful() && task.getResult() != null){
@@ -58,7 +58,7 @@ public class ShopActivity extends AppCompatActivity {
 
                 // For each product in the database create an object
                 // and save it to the object array
-                for (QueryDocumentSnapshot document : task.getResult()){
+                for (QueryDocumentSnapshot document : task.getResult()) {
                     // Save document data to a Map
                     Map<String, Object> data = document.getData();
 
@@ -66,21 +66,19 @@ public class ShopActivity extends AppCompatActivity {
                     products[index] = new Product(String.valueOf(data.get("Title")),
                             Double.parseDouble(String.valueOf(data.get("Price"))),
                             Integer.parseInt(String.valueOf(data.get("Availability"))),
-                            String.valueOf(data.get("ImageName")));
-
-
+                            String.valueOf(data.get("ImageName")),
+                            index + 1);
 
                     index += 1;
                 }
-
                 // Assign the adapter to the recycler view so we can have a list of products
-                RecyclerView shopItems = findViewById(R.id.shopItems);
-                ShopAdapter adapter = new ShopAdapter(Arrays.asList(products), this);
-                shopItems.setAdapter(adapter);
-                shopItems.setLayoutManager(new LinearLayoutManager(this));
+                ShopAdapter adapter2 = new ShopAdapter(Arrays.asList(products), this);
+                shopItems.setAdapter(adapter2);
             } else {
                 Log.w(TAG, "Error getting documents.", task.getException());
             }
         });
+
+
     }
 }

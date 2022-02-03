@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Ergasia-android-teliki</string>
 
+    <string name="back_button">Back</string>
+
     <!--Login activity-->
     <string name="user_not_found">There\'s no user with this email</string>
     <string name="error_invalid_password">Incorrect password</string>
@@ -35,5 +37,21 @@
     <string name="availability_text">Available: %1$s</string>
     <string name="product_price" translatable="false">%1$s €</string>
 
+    <!--Shopping cart activity-->
+    <string name="cart_total">Total: %1$s€</string>
+
+    <!--Order activity-->
+    <string name="getting_location">Getting location</string>
+    <string name="get_current_location">Get current location</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_loc_services_off">Location services are turned off!</string>
+    <string name="dialog_title_warning">Warning</string>
+    <string name="complete_order">Complete Order</string>
+    <string name="order_info_1">Select a store from the dropdown list below to see the available pickup hours for that store and how far it is from your location.</string>
+    <string name="order_info_2">You can press the "Get current location" button to update the info based on your newest location.</string>
+    <string name="distance_in_kilometers">This store is %1$s km away from you.</string>
+    <string-array name="spinner_no_permission">
+        <item>Please enable the location permission</item>
+    </string-array>
 
 </resources>
