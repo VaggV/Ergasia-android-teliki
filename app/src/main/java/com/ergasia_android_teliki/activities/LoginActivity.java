@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(view -> login());
         registerBtn.setOnClickListener(view -> {
             // Open register activity on click
-            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+            final Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
             startActivity(intent);
         });
     }
@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), getString(R.string.login_successful), Toast.LENGTH_LONG).show();
 
                 // Start main activity after login
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                final Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 
                 // Initialize cart clears the cart when a new login has been made
                 initializeCart();

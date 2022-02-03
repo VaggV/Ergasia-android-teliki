@@ -8,6 +8,7 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -19,7 +20,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.ergasia_android_teliki.Product;
 import com.ergasia_android_teliki.R;
 import com.ergasia_android_teliki.Store;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -28,14 +31,22 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.CancellationToken;
 import com.google.android.gms.tasks.CancellationTokenSource;
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -50,6 +61,7 @@ public class OrderActivity extends AppCompatActivity {
     private Store[] stores;
     private Location myLocation;
     private DateFormat dateFormat;
+    private FirebaseAuth auth;
 
     private static final int REQ_LOC_CODE = 23;
     private static final String TAG = "OrderActiviy";
@@ -59,8 +71,9 @@ public class OrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
 
-        // Initalize database
+        // Initalize firebase objects
         db = FirebaseFirestore.getInstance();
+        auth = FirebaseAuth.getInstance();
 
         // Create a format for the dates in the dropdown
         dateFormat = new SimpleDateFormat("dd MMMM yyyy HH:mm");
@@ -92,7 +105,10 @@ public class OrderActivity extends AppCompatActivity {
         // Set a button to get the location again if the user wants to
         locButton.setOnClickListener(view -> handleLocation());
         // Back button
-        backToCart.setOnClickListener(view -> finish());
+        backToCart.setOnClickListener(view -> {
+            final Intent intent = new Intent(OrderActivity.this, ShoppingCartActivity.class);
+            startActivity(intent);
+        });
 
         // Set a listener for when the user selects an item from the dropdown
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -103,6 +119,7 @@ public class OrderActivity extends AppCompatActivity {
                     // and show it to the user
                     double distance = Math.round(myLocation.distanceTo(stores[i].getLocation()));
                     double distanceKm = distance/1000;
+
                     distanceText.setText(getString(R.string.distance_in_kilometers, String.valueOf(distanceKm)));
 
                     // Get the available dates of the store selected and show them
@@ -113,6 +130,7 @@ public class OrderActivity extends AppCompatActivity {
                         String formatted = dateFormat.format(date);
                         dates.add(formatted);
                     }
+
 
                     // Set the available dates to the store dropdown
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(OrderActivity.this, R.layout.support_simple_spinner_dropdown_item, dates);
@@ -126,9 +144,77 @@ public class OrderActivity extends AppCompatActivity {
             }
         });
 
-        completeOrderBtn.setOnClickListener(view -> {
-            // TODO: Add complete order method
+        completeOrderBtn.setOnClickListener(view -> completeOrder(carttotal));
+    }
+
+    // Method for completing order
+    private void completeOrder(double total) {
+        // Create a map to store the details of the order so we can push it to firestore
+        Map<String, Object> order = new HashMap<>();
+        if (auth.getCurrentUser() != null) {
+            order.put("user", auth.getCurrentUser().getEmail());
+        }
+
+        // Order total
+        order.put("total", total);
+
+        // Get product list from shared preferences then turn it to an array,
+        // then to a list so we can store it to firestore
+        Gson gson = new Gson();
+        Type type = new TypeToken<ArrayList<Product>>() {}.getType();
+        ArrayList<Product> cartlist = gson.fromJson(sp.getString("productlist", null), type);
+        Product[] cartlist2 = cartlist.toArray(new Product[0]);
+        order.put("cartlist", Arrays.asList(cartlist2));
+
+        // Selected store from dropdown
+        Store store = (Store) spinner.getSelectedItem();
+        order.put("store", store.getId());
+
+        // Selected date from dropdown
+        order.put("datetime", datesDropdown.getSelectedItem().toString());
+
+        // Add order to firestore collection
+        db.collection("orders").add(order).addOnSuccessListener(documentReference -> {
+
+            // Update availability of products in firestore
+            db.collection("products").get().addOnSuccessListener(queryDocumentSnapshots -> {
+                SharedPreferences sp2 = OrderActivity.this.getSharedPreferences("Cart", MODE_PRIVATE);
+
+                for (int i=1; i <= queryDocumentSnapshots.size(); i++){
+                    // For each product in the database,
+                    // check in shared preferences if it's present, otherwise it will return 0
+                    int amount = sp2.getInt("Product" + i, 0);
+
+                    // If the product amount is 0 continue the loop to the next product
+                    if (amount == 0 ) continue;
+
+                    // If this product is in the user's cart then decrease the quantity
+                    // of the product in the database
+                    DocumentReference productRef = db.collection("products").document("product" + i);
+                    amount *= -1; // Multiply by -1 to use with increment method
+                    productRef.update("Availability", FieldValue.increment(amount));
+
+                }
+
+                // Go back to shop after finishing order
+                final Intent intent = new Intent(OrderActivity.this, ShopActivity.class);
+                startActivity(intent);
+
+                // Empty cart in sharedpreferences
+                sp.edit().clear().apply();
+
+                Toast.makeText(getApplicationContext(), getString(R.string.order_completed), Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "Order completed with id: " + documentReference.getId());
+            });
+
+
+
+        }).addOnFailureListener(e -> {
+            Toast.makeText(getApplicationContext(), getString(R.string.order_complete_error), Toast.LENGTH_SHORT).show();
+            Log.w(TAG, "Error completing order", e);
         });
+
+
     }
 
     @Override

@@ -51,7 +51,7 @@ public class RegisterActivity extends AppCompatActivity {
         registerBtn.setOnClickListener(view -> registerNewUser());
         backBtn.setOnClickListener(view -> {
             // Go back to login activity
-            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+            final Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
             startActivity(intent);
         });
     }
@@ -78,7 +78,7 @@ public class RegisterActivity extends AppCompatActivity {
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             if (task.isSuccessful()){
                 Toast.makeText(getApplicationContext(), getString(R.string.registration_successful), Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                final Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
 
                 // When a new user has been registered we also add him in firestore
                 // so we can specify a role (consumer is the default, and from

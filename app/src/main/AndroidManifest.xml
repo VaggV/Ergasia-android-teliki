@@ -15,13 +15,16 @@
         android:theme="@style/Theme.Material3.DayNight.NoActionBar">
         <activity
             android:name=".activities.OrderActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true"/>
         <activity
             android:name=".activities.ShoppingCartActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true"/>
         <activity
             android:name=".activities.ShopActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true"/>
         <activity
             android:name=".activities.MainActivity"
             android:exported="false" />

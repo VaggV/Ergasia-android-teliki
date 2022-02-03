@@ -36,9 +36,8 @@ public class ShopActivity extends AppCompatActivity {
         // Initalize buttons and on click listeners
         buttonviewcart = findViewById(R.id.buttonviewcart);
         buttonviewcart.setOnClickListener(view -> {
-            Intent intent = new Intent(ShopActivity.this, ShoppingCartActivity.class);
+            final Intent intent = new Intent(ShopActivity.this, ShoppingCartActivity.class);
             startActivity(intent);
-            finish();
         });
         buttonback = findViewById(R.id.buttonback);
         buttonback.setOnClickListener(view -> finish());

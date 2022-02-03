@@ -24,14 +24,14 @@ public class MainActivity extends AppCompatActivity {
         logoutBtn = findViewById(R.id.logoutBtn);
         logoutBtn.setOnClickListener(view -> {
             mAuth.signOut();
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            final Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
         });
 
         shopBtn = findViewById(R.id.shopBtn);
         shopBtn.setOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity.this, ShopActivity.class);
+            final Intent intent = new Intent(MainActivity.this, ShopActivity.class);
             startActivity(intent);
         });
     }

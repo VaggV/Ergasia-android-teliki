@@ -48,8 +48,13 @@
     <string name="dialog_title_warning">Warning</string>
     <string name="complete_order">Complete Order</string>
     <string name="order_info_1">Select a store from the dropdown list below to see the available pickup hours for that store and how far it is from your location.</string>
-    <string name="order_info_2">You can press the "Get current location" button to update the info based on your newest location.</string>
+    <string name="order_info_2">You can press the <b>Get current location</b> button to update the info based on your newest location.</string>
     <string name="distance_in_kilometers">This store is %1$s km away from you.</string>
+    <string name="order_completed">Your order was completed!</string>
+    <string name="order_complete_error">There was an error while completing your order.</string>
+    <string name="continue_button">Continue</string>
+    <string name="cart_is_empty">Cart is empty :(</string>
+    <string name="view_cart">View cart</string>
     <string-array name="spinner_no_permission">
         <item>Please enable the location permission</item>
     </string-array>

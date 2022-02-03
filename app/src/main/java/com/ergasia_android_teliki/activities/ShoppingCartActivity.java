@@ -43,14 +43,13 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
         continueOrderBtn = findViewById(R.id.continueOrderBtn);
         continueOrderBtn.setOnClickListener(view -> {
-            Intent intent = new Intent(ShoppingCartActivity.this, OrderActivity.class);
+            final Intent intent = new Intent(ShoppingCartActivity.this, OrderActivity.class);
             startActivity(intent);
         });
         backtoshop = findViewById(R.id.backtoshop);
         backtoshop.setOnClickListener(view -> {
-            Intent intent = new Intent(ShoppingCartActivity.this, ShopActivity.class);
+            final Intent intent = new Intent(ShoppingCartActivity.this, ShopActivity.class);
             startActivity(intent);
-            finish();
         });
 
         Gson gson = new Gson();

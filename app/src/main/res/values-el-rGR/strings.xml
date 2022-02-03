@@ -24,7 +24,7 @@
     <string name="your_orders_button">Οι παραγγελίες σας</string>
     <string name="settings_button">Ρυθμίσεις</string>
     <string name="add_to_cart_button">Προσθήκη στο καλάθι</string>
-    <string name="availability_text">Διαθέσιμα:</string>
+    <string name="availability_text">Διαθέσιμα: %1$s</string>
     <string name="cart_total">Σύνολο: %1$s€</string>
     <string name="back_button">Πίσω</string>
     <string name="getting_location">Ανάκτηση τοποθεσίας</string>
@@ -38,5 +38,10 @@
     <string name="complete_order">Ολοκλήρωση Παραγγελίας</string>
     <string name="order_info_1">Επιλέξτε ένα μαγαζί απο την παρακάτω λίστα για να δείτε τις εκάστοτε διαθέσιμες ώρες για παραλαβή και πόσο μακρύα βρίσκεται από την τοποθεσίας σας.</string>
     <string name="order_info_2">Μπορείτε να πατήσετε το κουμπί \"Λήψη τωρινής τοποθεσίας\" για να ανανεώσετε τις πληροφορίες βάσει της καινούριας σας τοποθεσίας.</string>
-    <string name="distance_in_kilometers">Αυτό το κατάστημα βρίσκετε %1$s χμ. μακρυά σας.</string>
+    <string name="distance_in_kilometers">Το κατάστημα βρίσκετε %1$s χμ μακρυά σας.</string>
+    <string name="order_completed">Η παραγγελία σας ολοκληρώθηκε!</string>
+    <string name="order_complete_error">Υπήρξε σφάλμα κατά την ολοκλήρωση της παραγγελίας σας</string>
+    <string name="continue_button">Συνέχεια</string>
+    <string name="cart_is_empty">Το καλάθι είναι άδειο</string>
+    <string name="view_cart">Καλάθι</string>
 </resources>
