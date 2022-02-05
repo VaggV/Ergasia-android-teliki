@@ -145,7 +145,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder>{
             if (productamount[0] >= product.getAvailability())
                 button.setEnabled(false);
 
-            Toast.makeText(context.getApplicationContext(), "Added to cart", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context.getApplicationContext(), context.getString(R.string.added_to_cart), Toast.LENGTH_SHORT).show();
         });
     }
 

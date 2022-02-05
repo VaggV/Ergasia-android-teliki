@@ -105,6 +105,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
 
         // Set delete button on click method to remove item from cart list
         SharedPreferences sp = context.getSharedPreferences("Cart", Context.MODE_PRIVATE);
+
         delbutton.setOnClickListener(view -> {
             String productid = "Product" + product.getId();
             // Gson and type are used to obtain and save the object to shared preferences

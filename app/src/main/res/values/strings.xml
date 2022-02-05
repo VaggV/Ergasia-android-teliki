@@ -36,6 +36,7 @@
     <string name="add_to_cart_button">Add to cart</string>
     <string name="availability_text">Available: %1$s</string>
     <string name="product_price" translatable="false">%1$s €</string>
+    <string name="added_to_cart">Added to cart</string>
 
     <!--Shopping cart activity-->
     <string name="cart_total">Total: %1$s€</string>
@@ -55,8 +56,14 @@
     <string name="continue_button">Continue</string>
     <string name="cart_is_empty">Cart is empty :(</string>
     <string name="view_cart">View cart</string>
+    <string name="couldnt_get_location">Couldn\'t get your location</string>
     <string-array name="spinner_no_permission">
         <item>Please enable the location permission</item>
     </string-array>
+
+    <!--Store profile activity-->
+    <string name="orders_incoming_to_store">Incoming customers</string>
+    <string name="user_items">User items:</string>
+
 
 </resources>

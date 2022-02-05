@@ -105,7 +105,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful() && task.getResult() != null){
                         String role = (String) task.getResult().get("role");
-                        if (role != null && role.startsWith("store")) storeProfileBtn.setVisibility(View.VISIBLE);
+                        if (role != null && role.startsWith("store")) {
+                            storeProfileBtn.setVisibility(View.VISIBLE);
+                            shopBtn.setVisibility(View.GONE);
+                        }
                         sp.edit().putString("role", role).apply();
                     }
                 });

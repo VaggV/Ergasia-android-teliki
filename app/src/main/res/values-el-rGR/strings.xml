@@ -44,4 +44,8 @@
     <string name="cart_is_empty">Το καλάθι είναι άδειο</string>
     <string name="view_cart">Καλάθι</string>
     <string name="store_profile_button">Προφιλ καταστήματος</string>
+    <string name="couldnt_get_location">Αδύνατη εύρεση τοποθεσίας</string>
+    <string name="added_to_cart">Προστέθηκε στο καλάθι</string>
+    <string name="orders_incoming_to_store">Εισερχόμενοι πελάτες</string>
+    <string name="user_items">Προϊόντα χρήστη:</string>
 </resources>

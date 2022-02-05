@@ -30,6 +30,7 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.CancellationToken;
 import com.google.android.gms.tasks.CancellationTokenSource;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -203,15 +204,18 @@ public class OrderActivity extends AppCompatActivity {
                 // Empty cart in sharedpreferences
                 sp.edit().clear().apply();
 
+                db.collection("users")
+                        .document(auth.getCurrentUser().getEmail())
+                        .collection("orders")
+                        .document(documentReference.getId())
+                        .set(order)
+                        .addOnSuccessListener(documentReference1 -> Log.d(TAG, "Order added to users orders"));
+
                 Toast.makeText(getApplicationContext(), getString(R.string.order_completed), Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "Order completed with id: " + documentReference.getId());
             });
 
-            db.collection("users")
-                    .document(auth.getCurrentUser().getEmail())
-                    .collection("orders")
-                    .add(order)
-                    .addOnSuccessListener(documentReference1 -> Log.d(TAG, "Order added to users orders"));
+
 
         }).addOnFailureListener(e -> {
             Toast.makeText(getApplicationContext(), getString(R.string.order_complete_error), Toast.LENGTH_SHORT).show();
@@ -292,7 +296,8 @@ public class OrderActivity extends AppCompatActivity {
                 // Set the addresses dropdown to contain a message
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                         R.layout.support_simple_spinner_dropdown_item,
-                        new String[]{"Couldn't get your location"});
+                        new String[]{getString(R.string.couldnt_get_location)});
+
                 spinner.setAdapter(adapter);
             }
             // Hide the loading layout when the getCurrentMethod location has finished

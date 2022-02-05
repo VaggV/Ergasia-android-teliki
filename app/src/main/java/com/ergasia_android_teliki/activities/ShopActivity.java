@@ -44,6 +44,7 @@ public class ShopActivity extends AppCompatActivity {
 
 
         RecyclerView shopItems = findViewById(R.id.shopItems);
+
         ShopAdapter adapter = new ShopAdapter(new ArrayList<>(), this);
         shopItems.setAdapter(adapter);
         shopItems.setLayoutManager(new LinearLayoutManager(this));

@@ -83,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
                 final Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 
                 // Initialize cart clears the cart when a new login has been made
-                initializeCart();
+                editor.clear().apply();
                 startActivity(intent);
             } else {
                 // Different catch clauses for each error case
@@ -104,9 +104,5 @@ public class LoginActivity extends AppCompatActivity {
 
             progressBar.setVisibility(View.GONE);
         });
-    }
-
-    private void initializeCart(){
-        editor.clear().apply();
     }
 }
