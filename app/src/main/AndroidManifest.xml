@@ -14,17 +14,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Material3.DayNight.NoActionBar">
         <activity
+            android:name=".activities.StoreProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.OrderActivity"
             android:exported="false"
-            android:noHistory="true"/>
+            android:noHistory="true" />
         <activity
             android:name=".activities.ShoppingCartActivity"
             android:exported="false"
-            android:noHistory="true"/>
+            android:noHistory="true" />
         <activity
             android:name=".activities.ShopActivity"
             android:exported="false"
-            android:noHistory="true"/>
+            android:noHistory="true" />
         <activity
             android:name=".activities.MainActivity"
             android:exported="false" />

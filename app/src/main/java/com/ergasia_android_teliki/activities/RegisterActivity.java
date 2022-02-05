@@ -24,11 +24,12 @@ import java.util.Map;
 import java.util.Objects;
 
 public class RegisterActivity extends AppCompatActivity {
-    FirebaseAuth mAuth;
-    EditText emailInput, passwordInput;
-    ProgressBar progressBar;
-    Button registerBtn, backBtn;
-    FirebaseFirestore db;
+    private FirebaseAuth mAuth;
+    private EditText emailInput, passwordInput;
+    private ProgressBar progressBar;
+    private Button registerBtn, backBtn;
+    private FirebaseFirestore db;
+
     private static final String TAG = "RegisterActivity";
 
     @Override

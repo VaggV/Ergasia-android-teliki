@@ -20,12 +20,12 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 
 public class LoginActivity extends AppCompatActivity {
-    FirebaseAuth mAuth;
-    EditText emailInput, passwordInput;
-    Button loginBtn, registerBtn;
-    ProgressBar progressBar;
-    SharedPreferences sp;
-    SharedPreferences.Editor editor;
+    private FirebaseAuth mAuth;
+    private EditText emailInput, passwordInput;
+    private Button loginBtn, registerBtn;
+    private ProgressBar progressBar;
+    private SharedPreferences sp;
+    private SharedPreferences.Editor editor;
     private static final String TAG = "LoginActivity";
 
     @Override

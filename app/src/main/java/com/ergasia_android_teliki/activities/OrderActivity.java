@@ -42,6 +42,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -55,7 +56,7 @@ public class OrderActivity extends AppCompatActivity {
     private TextView ordertotal, distanceText;
     private Button locButton, backToCart, completeOrderBtn;
     private ConstraintLayout loadingLayout, storeInfo;
-    private FusedLocationProviderClient fusedLocationProviderClient;
+    private FusedLocationProviderClient fusedLocation;
     private FirebaseFirestore db;
     private Spinner spinner, datesDropdown;
     private Store[] stores;
@@ -97,7 +98,7 @@ public class OrderActivity extends AppCompatActivity {
         ordertotal.setText(getString(R.string.cart_total, String.valueOf(carttotal)));
 
         // Initialize location provider
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        fusedLocation = LocationServices.getFusedLocationProviderClient(this);
 
         // Get location once when the activity loads
         handleLocation();
@@ -120,7 +121,7 @@ public class OrderActivity extends AppCompatActivity {
                     double distance = Math.round(myLocation.distanceTo(stores[i].getLocation()));
                     double distanceKm = distance/1000;
 
-                    distanceText.setText(getString(R.string.distance_in_kilometers, String.valueOf(distanceKm)));
+                    distanceText.setText(getString(R.string.distance_in_kilometers, new DecimalFormat("##.##").format(distanceKm)));
 
                     // Get the available dates of the store selected and show them
                     // in another dropdown list
@@ -130,7 +131,6 @@ public class OrderActivity extends AppCompatActivity {
                         String formatted = dateFormat.format(date);
                         dates.add(formatted);
                     }
-
 
                     // Set the available dates to the store dropdown
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(OrderActivity.this, R.layout.support_simple_spinner_dropdown_item, dates);
@@ -182,7 +182,7 @@ public class OrderActivity extends AppCompatActivity {
 
                 for (int i=1; i <= queryDocumentSnapshots.size(); i++){
                     // For each product in the database,
-                    // check in shared preferences if it's present, otherwise it will return 0
+                    // check in shared preferences if it has been added, otherwise it will return 0
                     int amount = sp2.getInt("Product" + i, 0);
 
                     // If the product amount is 0 continue the loop to the next product
@@ -207,14 +207,16 @@ public class OrderActivity extends AppCompatActivity {
                 Log.d(TAG, "Order completed with id: " + documentReference.getId());
             });
 
-
+            db.collection("users")
+                    .document(auth.getCurrentUser().getEmail())
+                    .collection("orders")
+                    .add(order)
+                    .addOnSuccessListener(documentReference1 -> Log.d(TAG, "Order added to users orders"));
 
         }).addOnFailureListener(e -> {
             Toast.makeText(getApplicationContext(), getString(R.string.order_complete_error), Toast.LENGTH_SHORT).show();
             Log.w(TAG, "Error completing order", e);
         });
-
-
     }
 
     @Override
@@ -244,8 +246,8 @@ public class OrderActivity extends AppCompatActivity {
         CancellationTokenSource src = new CancellationTokenSource();
         CancellationToken ct = src.getToken();
 
-        // --- THIS IS A BIT SLOW ---
-        fusedLocationProviderClient.getCurrentLocation(LocationRequest.PRIORITY_HIGH_ACCURACY, ct).addOnSuccessListener(myLoc -> {
+        // Get location once with fusedLocation.getCurrentLocation
+        fusedLocation.getCurrentLocation(LocationRequest.PRIORITY_HIGH_ACCURACY, ct).addOnSuccessListener(myLoc -> {
             // If myLoc isn't null then it means the user's location was successfully grabbed
             if (myLoc != null){
                 myLocation = myLoc;

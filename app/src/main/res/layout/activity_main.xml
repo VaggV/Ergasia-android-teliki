@@ -10,53 +10,39 @@
         android:id="@+id/shopBtn"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
         android:text="@string/shop_button"
         app:icon="@drawable/shop_icon"
-        app:layout_constraintBottom_toTopOf="@+id/ordersBtn"
+        app:layout_constraintBottom_toTopOf="@+id/storeProfileBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <Button
-        android:id="@+id/ordersBtn"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="@string/your_orders_button"
-        app:icon="@drawable/orders_icon"
-        app:layout_constraintBottom_toTopOf="@+id/settingsBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/shopBtn" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/logoutBtn"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
+        android:layout_marginTop="53dp"
         android:text="@string/logoutBtn"
         app:icon="@drawable/logout_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settingsBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/storeProfileBtn" />
 
     <Button
-        android:id="@+id/settingsBtn"
+        android:id="@+id/storeProfileBtn"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="@string/settings_button"
-        app:icon="@drawable/settings_icon"
+        android:layout_marginTop="53dp"
+        android:text="@string/store_profile_button"
+        android:visibility="gone"
+        app:icon="@drawable/store_icon"
         app:layout_constraintBottom_toTopOf="@+id/logoutBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ordersBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/shopBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

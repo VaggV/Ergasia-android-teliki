@@ -10,16 +10,25 @@ import com.google.firebase.firestore.GeoPoint;
 import java.util.List;
 
 public class Store {
-    String address;
-    String id;
-    GeoPoint geoPoint;
-    List<Timestamp> dates;
+    private String address;
+    private String id;
+    private GeoPoint geoPoint;
+    private List<Timestamp> dates;
+    private String orderId;
 
     public Store(String address, String id, GeoPoint geoPoint, List<Timestamp> dates) {
         this.address = address;
         this.id = id;
         this.geoPoint = geoPoint;
         this.dates = dates;
+    }
+
+    public Store(String address, String id, GeoPoint geoPoint, List<Timestamp> dates, String orderId) {
+        this.address = address;
+        this.id = id;
+        this.geoPoint = geoPoint;
+        this.dates = dates;
+        this.orderId = orderId;
     }
 
     @NonNull
@@ -41,5 +50,9 @@ public class Store {
 
     public List<Timestamp> getDates() {
         return dates;
+    }
+
+    public String getOrderId() {
+        return orderId;
     }
 }

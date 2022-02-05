@@ -14,15 +14,14 @@
     <string name="click_away_shop">Μαγαζί click away</string>
     <string name="register">Εγγραφή</string>
     <string name="back_to_login">Πίσω στην είσοδο</string>
-    <string name="please_enter_email">Παρακαλώ εισάγεται το email σας.</string>
-    <string name="please_enter_password">Παρακαλώ εισάγεται τον κωδικό σας.</string>
+    <string name="please_enter_email">Παρακαλώ εισάγετε το email σας.</string>
+    <string name="please_enter_password">Παρακαλώ εισάγετε τον κωδικό σας.</string>
     <string name="registration_successful">Η εγγραφή ήταν επιτυχής!</string>
     <string name="register_failed_unknown">Η εγγραφή απέτυχε με άγνωστο σφάλμα</string>
     <string name="login_successful">Είσοδος επιτυχής</string>
     <string name="login_failed_unknown">Η είσοδος απέτυχε με άγνωστο σφάλμα</string>
     <string name="shop_button">Μαγαζί</string>
     <string name="your_orders_button">Οι παραγγελίες σας</string>
-    <string name="settings_button">Ρυθμίσεις</string>
     <string name="add_to_cart_button">Προσθήκη στο καλάθι</string>
     <string name="availability_text">Διαθέσιμα: %1$s</string>
     <string name="cart_total">Σύνολο: %1$s€</string>
@@ -44,4 +43,5 @@
     <string name="continue_button">Συνέχεια</string>
     <string name="cart_is_empty">Το καλάθι είναι άδειο</string>
     <string name="view_cart">Καλάθι</string>
+    <string name="store_profile_button">Προφιλ καταστήματος</string>
 </resources>

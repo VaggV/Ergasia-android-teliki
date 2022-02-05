@@ -21,9 +21,9 @@ import java.util.Map;
 
 public class ShopActivity extends AppCompatActivity {
     private static final String TAG = "ShopActivity";
-    FirebaseFirestore db;
-    Button buttonback, buttonviewcart;
-    Product[] products;
+    private FirebaseFirestore db;
+    private Button buttonback, buttonviewcart;
+    private Product[] products;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

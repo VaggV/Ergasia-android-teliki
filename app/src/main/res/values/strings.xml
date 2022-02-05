@@ -30,7 +30,7 @@
     <string name="choose_language">Choose language</string>
     <string name="shop_button">Shop</string>
     <string name="your_orders_button">Your orders</string>
-    <string name="settings_button">Settings</string>
+    <string name="store_profile_button">Store Profile</string>
 
     <!--Shop activity-->
     <string name="add_to_cart_button">Add to cart</string>
