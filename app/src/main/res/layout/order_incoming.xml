@@ -7,7 +7,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="409dp"
-        android:layout_height="100dp"
+        android:layout_height="200dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -18,13 +18,15 @@
 
             <Spinner
                 android:id="@+id/orderItemsDropdown"
-                android:layout_width="201dp"
-                android:layout_height="56dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="219dp"
+                android:layout_height="53dp"
+                android:layout_marginTop="56dp"
+                app:layout_constraintBottom_toTopOf="@+id/completeIncomingOrder"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/textView8"
-                app:layout_constraintTop_toBottomOf="@+id/orderTotalPrice"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.111"
                 tools:ignore="SpeakableTextPresentCheck" />
 
             <TextView
@@ -34,18 +36,19 @@
                 android:text="@string/user_items"
                 android:textSize="17sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/orderItemsDropdown"
                 app:layout_constraintEnd_toStartOf="@+id/orderItemsDropdown"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/orderUserId" />
+                app:layout_constraintTop_toTopOf="@+id/orderItemsDropdown" />
 
             <TextView
                 android:id="@+id/orderUserId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="92dp"
                 android:text="userid"
-                app:layout_constraintBottom_toTopOf="@+id/orderItemsDropdown"
                 app:layout_constraintEnd_toStartOf="@+id/orderTotalPrice"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -56,11 +59,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ordertotalprice"
-                app:layout_constraintBottom_toTopOf="@+id/orderItemsDropdown"
+                app:layout_constraintBottom_toBottomOf="@+id/orderUserId"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/orderUserId"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@+id/orderUserId" />
+
+            <Button
+                android:id="@+id/completeIncomingOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="@string/complete_order"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.489"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <View
                 android:id="@+id/divider"

@@ -64,6 +64,7 @@
     <!--Store profile activity-->
     <string name="orders_incoming_to_store">Incoming customers</string>
     <string name="user_items">User items:</string>
+    <string name="user_id">Customer ID: %1$s</string>
 
 
 </resources>

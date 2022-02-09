@@ -8,6 +8,8 @@ import android.os.Bundle;
 
 import com.ergasia_android_teliki.R;
 import com.ergasia_android_teliki.adapters.StoreProfileAdapter;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -20,11 +22,14 @@ import java.util.Map;
 
 public class StoreProfileActivity extends AppCompatActivity {
     private FirebaseFirestore db;
+    private FirebaseAuth auth;
     private ListenerRegistration registration;
     private RecyclerView orderRecyclerView;
     private List<List<String>> orderItems;
     private List<String> users;
     private List<Double> prices;
+    private List<DocumentReference> orderIds;
+    private List<DocumentReference> incomingOrders;
 
     private final String TAG = "StoreProfileActivity";
 
@@ -35,14 +40,17 @@ public class StoreProfileActivity extends AppCompatActivity {
 
         // Initializations
         db = FirebaseFirestore.getInstance();
+        auth = FirebaseAuth.getInstance();
         orderItems = new ArrayList<>();
         users = new ArrayList<>();
         prices = new ArrayList<>();
+        orderIds = new ArrayList<>();
+        incomingOrders = new ArrayList<>();
         orderRecyclerView = findViewById(R.id.orderRecyclerView);
 
         // Initialize adapter for recycler view with an empty adapter
         // so we can update it after the data is retrieved from firestore
-        StoreProfileAdapter adapter = new StoreProfileAdapter(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+        StoreProfileAdapter adapter = new StoreProfileAdapter();
         orderRecyclerView.setAdapter(adapter);
         orderRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -60,9 +68,12 @@ public class StoreProfileActivity extends AppCompatActivity {
             if (value != null && !value.isEmpty()){
 
                 // Clear the arrays every time there's a new incoming user added to the database
+                // because every time this listener is called it returns all the documents of the collection
                 orderItems.clear();
                 users.clear();
                 prices.clear();
+                orderIds.clear();
+                incomingOrders.clear();
 
                 // For every user in "incoming" collection
                 for(DocumentSnapshot snap : value.getDocuments()){
@@ -102,9 +113,16 @@ public class StoreProfileActivity extends AppCompatActivity {
                                 // Add to the order items list the items of the user's order
                                 orderItems.add(orderItems1);
 
+                                // Add the order document reference to a list
+                                orderIds.add(order);
+
+                                // Add the incoming order to a list
+                                DocumentReference incomingorder = ref.document(auth.getCurrentUser().getEmail());
+                                incomingOrders.add(incomingorder);
+
                                 // Set the recycler view adapter to contain the arrays
                                 // so we can show the data to the screen
-                                StoreProfileAdapter adapter2 = new StoreProfileAdapter(users, orderItems, prices);
+                                StoreProfileAdapter adapter2 = new StoreProfileAdapter(users, orderItems, prices, orderIds, incomingOrders);
                                 orderRecyclerView.setAdapter(adapter2);
                             }
                         });

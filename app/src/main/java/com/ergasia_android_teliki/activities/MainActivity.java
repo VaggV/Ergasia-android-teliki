@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private List<Store> storeList;
     private FirebaseFirestore db;
     private SharedPreferences sp;
+    private String role;
 
     private static final String TAG = "MainActivity";
     static final int REQ_LOC_CODE = 23;
@@ -98,20 +99,16 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             startActivity(intent);
         });
 
-        // Get user role from firestore
-        // If it's a store, then show the "Store profile" button
-        // and save the role to shared preferences to use as an id
-        db.collection("users").document(mAuth.getCurrentUser().getEmail()).get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful() && task.getResult() != null){
-                        String role = (String) task.getResult().get("role");
-                        if (role != null && role.startsWith("store")) {
-                            storeProfileBtn.setVisibility(View.VISIBLE);
-                            shopBtn.setVisibility(View.GONE);
-                        }
-                        sp.edit().putString("role", role).apply();
-                    }
-                });
+        // Get the user role from shared preferences
+        role = sp.getString("role", "");
+        if (role.startsWith("store")) {
+            // If the user is a store then we want to show the store profile button
+            // instead of the shop button and also disable locationmanager updates
+            // because they're not needed
+            locationManager.removeUpdates(MainActivity.this);
+            storeProfileBtn.setVisibility(View.VISIBLE);
+            shopBtn.setVisibility(View.GONE);
+        }
 
         // Check if the required permissions are granted
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
