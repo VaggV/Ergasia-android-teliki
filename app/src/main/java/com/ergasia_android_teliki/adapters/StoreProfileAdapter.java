@@ -124,14 +124,14 @@ public class StoreProfileAdapter extends RecyclerView.Adapter<StoreProfileAdapte
             order.delete().addOnSuccessListener(unused -> {
                 Log.d("StoreProfileAdapter", "Order successfuly deleted from orders collection");
             }).addOnFailureListener(e -> {
-                Log.w("StoreProfileAdapter", "Error delete order from orders collection", e);
+                Log.w("StoreProfileAdapter", "Error (delete order from orders collection)", e);
             });
 
             // Delete order from the store's incoming collection
             incomingOrder.delete().addOnSuccessListener(unused -> {
                 Log.d("StoreProfileAdapter", "Order successfuly deleted from store's incoming collection");
             }).addOnFailureListener(e -> {
-                Log.w("StoreProfileAdapter", "Error delete order from store's incoming collection", e);
+                Log.w("StoreProfileAdapter", "Error (delete order from store's incoming collection)", e);
             });
         });
     }
